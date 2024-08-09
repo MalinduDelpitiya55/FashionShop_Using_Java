@@ -1,18 +1,70 @@
-package com.mycompany.fashion_shop;
-
 import java.util.*;
+
+/**
+ * Fashion Shop Management System
+ *  * @author Malindu Delpitiya
+ */
+class Customer {
+
+    private String Orders;
+    private String phoneNumbers;
+    private String sizes;
+    private int qtys;
+    private double amounts;
+    private String statuss;
+
+    public Customer(String id, String phoneNumber, String size, int qty, double amount, String status) {
+        this.Orders = id;
+        this.phoneNumbers = phoneNumber;
+        this.sizes = size;
+        this.qtys = qty;
+        this.amounts = amount;
+        this.statuss = status;
+    }
+
+    public String getID() {
+        return Orders;
+    }
+
+    public String getPhoneNumbers() {
+        return phoneNumbers;
+    }
+
+    public String getSizes() {
+        return sizes;
+    }
+
+    public int getQtys() {
+        return qtys;
+    }
+
+    public double getAmounts() {
+        return amounts;
+    }
+
+    public String getStatuss() {
+        return statuss;
+    }
+
+    public void setStatuss(String status) {
+        this.statuss = status;
+    }
+
+    public void showOrderDetails(int i) {
+        System.out.print("\n\tPhone Number : " + Orders);
+        System.out.print("\n\tSize         : " + sizes);
+        System.out.print("\n\tQTY          : " + qtys);
+        System.out.print("\n\tAmount       : " + amounts);
+        System.out.print("\n\tStatus       : " + statuss);
+    }
+
+}
 
 public class Fashion_Shop {
 
     static Scanner input = new Scanner(System.in);
-
-    static String Orders[] = new String[0];
-    static String phoneNumbers[] = new String[0];
-    static String sizes[] = new String[0];
-    static int qtys[] = new int[0];
-    static double amounts[] = new double[0];
-    static String statuss[] = new String[0];
-
+    static int id = 0;
+    static Customer[] customers = new Customer[0];
     static String sizeChart[] = {"XS", "S", "M", "L", "XL", "XXL"};
     static final int XS = 600;
     static final int S = 800;
@@ -21,7 +73,6 @@ public class Fashion_Shop {
     static final int XL = 1100;
     static final int XXL = 1200;
     static final String[] finalStatus = {"Processing", "Delivering", "Delivered"};
-    static int id = 0;
 
     public static void main(String[] args) {
         homepage();
@@ -29,31 +80,30 @@ public class Fashion_Shop {
 
     public static void homepage() {
         clearConsole();
-        System.out.println("\t    /$$$$$$$$                 /$$       /$$                            /$$$$$$  /$$                     				");
-        System.out.println("\t   | $$_____/                | $$      |__/                           /$$__  $$| $$                            		");
-        System.out.println("\t   | $$    /$$$$$$   /$$$$$$$| $$$$$$$  /$$  /$$$$$$  /$$$$$$$       | $$  \\__/| $$$$$$$   /$$$$$$   /$$$$$$         ");
-        System.out.println("\t   | $$$$$|____  $$ /$$_____/| $$__  $$| $$ /$$__  $$| $$__  $$      |  $$$$$$ | $$__  $$ /$$__  $$ /$$__  $$         ");
-        System.out.println("\t   | $$__/ /$$$$$$$|  $$$$$$ | $$  \\ $$| $$| $$  \\ $$| $$  \\ $$       \\____  $$| $$  \\ $$| $$  \\ $$| $$  \\ $$  ");
-        System.out.println("\t   | $$   /$$__  $$ \\____  $$| $$  | $$| $$| $$  | $$| $$  | $$       /$$  \\ $$| $$  | $$| $$  | $$| $$  | $$       ");
-        System.out.println("\t   | $$  |  $$$$$$$ /$$$$$$$/| $$  | $$| $$|  $$$$$$/| $$  | $$      |  $$$$$$/| $$  | $$|  $$$$$$/| $$$$$$$/         ");
-        System.out.println("\t   | __/  \\_______/|_______/ |__/  |__/|__/ \\______/ |__/  |__/       \\______/ |__/  |__/ \\______/ | $$$$$$/      ");
-        System.out.println("                                                                                                           | $$         ");
-        System.out.println("                                                                                                           | $$         ");
-        System.out.println("                                                                                                           |__/                  \n");
-        System.out.println("\t--------------------------------------------------------------------------------------------------------------------\n\n");
+        System.out.println("\t    /$$$$$$$$                 /$$       /$$                            /$$$$$$  /$$");
+        System.out.println("\t   | $$_____/                | $$      |__/                           /$$__  $$| $$");
+        System.out.println("\t   | $$    /$$$$$$   /$$$$$$$| $$$$$$$  /$$  /$$$$$$  /$$$$$$$       | $$  \\__/| $$$$$$$   /$$$$$$   /$$$$$$");
+        System.out.println("\t   | $$$$$|____  $$ /$$_____/| $$__  $$| $$ /$$__  $$| $$__  $$      |  $$$$$$ | $$__  $$ /$$__  $$ /$$__  $$");
+        System.out.println("\t   | $$__/ /$$$$$$$|  $$$$$$ | $$  \\ $$| $$| $$  \\ $$| $$  \\ $$       \\____  $$| $$  \\ $$| $$  \\ $$| $$  \\ $$");
+        System.out.println("\t   | $$   /$$__  $$ \\____  $$| $$  | $$| $$| $$  | $$| $$  | $$       /$$  \\ $$| $$  | $$| $$  | $$| $$  | $$");
+        System.out.println("\t   | $$  |  $$$$$$$ /$$$$$$$/| $$  | $$| $$|  $$$$$$/| $$  | $$      |  $$$$$$/| $$  | $$|  $$$$$$/| $$$$$$$/");
+        System.out.println("\t   |__/  \\_______/|_______/ |__/  |__/|__/ \\______/ |__/  |__/       \\______/ |__/  |__/ \\______/ |_______/");
+        System.out.println("                                                                                                           | $$");
+        System.out.println("                                                                                                           | $$");
+        System.out.println("                                                                                                           |__/");
 
-        System.out.printf("\t\t%-30s%-30s\n\n\t\t%-30s%-30s\n\n\t\t%-30s%-30s\n", "[1]Place Order", "[2]Search Customer", "[3]Search Order", "[4]View Reports", "[5]Set Order Status", "[6]Delete Order");
-        boolean isTrue = true;
+        System.out.printf("\n\t\t%-30s%-30s\n\n\t\t%-30s%-30s\n\n\t\t%-30s%-30s\n", "[1]Place Order", "[2]Search Customer", "[3]Search Order", "[4]View Reports", "[5]Set Order Status", "[6]Delete Order");
         char option;
-        System.out.print("\n\n\t\tInput Option: ");
         do {
+            System.out.print("\n\n\t\tInput Option: ");
             option = input.next().charAt(0);
             if (option == '1' || option == '2' || option == '3' || option == '4' || option == '5' || option == '6') {
-                isTrue = false;
+                break;
             } else {
                 System.out.print("\n\t\tInvalid Input...!\n\t\tPlease Enter valid option: ");
             }
-        } while (isTrue);
+        } while (true);
+
         switch (option) {
             case '1':
                 placeOrder();
@@ -65,32 +115,8 @@ public class Fashion_Shop {
                 searchOrder();
                 break;
             case '4':
-                clearConsole();
-                System.out.println("\t\t     _____                        _       ");
-                System.out.println("\t\t    |  __ \\                      | |   ");
-                System.out.println("\t\t    | |__) |___  _ __   ___  _ __| |_ ___ ");
-                System.out.println("\t\t    |  _  // _  \\ '_ \\ / _ \\| '__|  _/ __| ");
-                System.out.println("\t\t    | | \\ \\   __/ |_) | (_) | |  | |_\\__ \\ ");
-                System.out.println("\t\t    |_|  \\_\\____| .__/ \\___/|_|   \\__|___/");
-                System.out.println("\t\t                | |    ");
-                System.out.println("\t\t                |_|");
-                System.out.println("\t\t  __________________________________________");
-
-                System.out.printf("\n\n\t\t[1] Best in Customers \n\n\t\t[2] All Orders \n\n\tEnter option : ");
-                int op = input.nextInt();
-                switch (op) {
-                    case 1:
-                        clearConsole();
-                        bestInCostomers();
-                        break;
-                    case 2:
-                        clearConsole();
-                        AllOrders();
-                        break;
-
-                    default:
-                        System.out.println("Try Again");
-                }
+                viewReports();
+                break;
             case '5':
                 setOrderStatus();
                 break;
@@ -102,13 +128,14 @@ public class Fashion_Shop {
 
     public static void placeOrder() {
         clearConsole();
-        System.out.println("\t\t _____  _                        ____          _                 ");
-        System.out.println("\t\t|  __ \\| |                      / __ \\        | |                                  ");
-        System.out.println("\t\t| |__) | | __ _  ____ ____     | |  | |_ __ __| | ____ _ __                     ");
-        System.out.println("\t\t|  ___/| |/ _' |/ __/  _  \\    | |  | | '__/ _' |/  _ \\ '__|                    ");
-        System.out.println("\t\t| |    | | (_| | (_|    __/    | |__| | | | (_| |   __/ |                     ");
-        System.out.println("\t\t|_|    |_|\\__,_|\\___\\_____|     \\____/|_|  \\__,_|\\____|_|                       \n");
-        System.out.println("\t\t_________________________________________________________________\n");
+        System.out.println("\t\t _____  _                        ____          _");
+        System.out.println("\t\t|  __ \\| |                      / __ \\        | |");
+        System.out.println("\t\t| |__) | | __ _  ____ ____     | |  | |_ __ __| | ____ _ __");
+        System.out.println("\t\t|  ___/| |/ _` |/ __/  _  \\    | |  | | '__/ _` |/  _ \\ '__|");
+        System.out.println("\t\t| |    | | (_| | (_|    __/    | |__| | | | (_| |   __/ |");
+        System.out.println("\t\t|_|    |_|\\__,_|\\___\\_____|     \\____/|_|  \\__,_|\\____|_|");
+        System.out.println("\t\t___________________________________________________________\n");
+
         String phoneNumber, size = "", sizeInput;
         id++;
         String formatLength = String.format("%05d", id);
@@ -125,8 +152,10 @@ public class Fashion_Shop {
             System.out.print("\n\tDo you want to enter phone number again? (Y/N): ");
             char op = input.next().charAt(0);
             if (op == 'N' || op == 'n') {
+                id--;
                 homepage();
             } else if (op == 'Y' || op == 'y') {
+                id--;
                 placeOrder();
             }
         }
@@ -161,6 +190,9 @@ public class Fashion_Shop {
             case "S":
                 total = QTY * S;
                 break;
+            case "M":
+                total = QTY * M;
+                break;
             case "L":
                 total = QTY * L;
                 break;
@@ -179,15 +211,10 @@ public class Fashion_Shop {
         char option = input.next().charAt(0);
 
         if (option == 'Y' || option == 'y') {
+            customers = extendCustomerArray(customers);
+            customers[customers.length - 1] = new Customer(oderID, phoneNumber, size, QTY, total, finalStatus[0]);
+            System.out.println("\n\t\tOrder Placed..!");
 
-            extendArrays();
-            Orders[Orders.length - 1] = oderID;
-            phoneNumbers[phoneNumbers.length - 1] = phoneNumber;
-            sizes[sizes.length - 1] = size;
-            qtys[qtys.length - 1] = QTY;
-            amounts[amounts.length - 1] = total;
-            statuss[statuss.length - 1] = finalStatus[0];
-            System.out.println("\n\t\tOrder Places..!");
         } else {
             id--;
         }
@@ -215,45 +242,47 @@ public class Fashion_Shop {
         double total[] = new double[6];
         String tempsize[] = new String[sizeChart.length];
         double totalAmount = 0;
+        
         for (int i = 0; i < sizeChart.length; i++) {
             tempsize[i] = sizeChart[i];
         }
         System.out.print("\n\n\tEnter Customer Phone Number: ");
         String phoneNumber = input.next();
         boolean isValidNumber = false;
-        for (int i = 0; i < Orders.length; i++) {
-            if (phoneNumber.equalsIgnoreCase(phoneNumbers[i])) {
+        for (int i = 0; i < customers.length; i++) {
+            if (phoneNumber.equalsIgnoreCase(customers[i].getPhoneNumbers())) {
                 isValidNumber = true;
-                switch (sizes[i]) {
+                switch (customers[i].getSizes()) {
                     case "XS":
-                        qty[0] += qtys[i];
-                        total[0] += amounts[i];
-                        totalAmount += amounts[i];
+                        qty[0] += customers[i].getQtys();
+                        total[0] += customers[i].getAmounts();
+                        totalAmount += customers[i].getAmounts();
                         break;
                     case "S":
-                        qty[1] += qtys[i];
-                        total[1] += amounts[i];
-                        totalAmount += amounts[i];
+                        qty[1] += customers[i].getQtys();
+                        total[1] += customers[i].getAmounts();
+                        totalAmount += customers[i].getAmounts();
                         break;
                     case "M":
-                        qty[2] += qtys[i];
-                        total[2] += amounts[i];
-                        totalAmount += amounts[i];
+                        qty[2] += customers[i].getQtys();
+                        total[2] += customers[i].getAmounts();
+                        totalAmount += customers[i].getAmounts();
                         break;
                     case "L":
-                        qty[3] += qtys[i];
-                        total[3] += amounts[i];
-                        totalAmount += amounts[i];
+                        qty[3] += customers[i].getQtys();
+                        total[3] += customers[i].getAmounts();
+                        totalAmount += customers[i].getAmounts();
                         break;
                     case "XL":
-                        qty[4] += qtys[i];
-                        total[4] += amounts[i];
-                        totalAmount += amounts[i];
+                        qty[4] += customers[i].getQtys();
+                        total[4] += customers[i].getAmounts();
+                        totalAmount += customers[i].getAmounts();
                         break;
                     case "XXL":
-                        qty[5] += qtys[i];
-                        total[5] += amounts[i];
-                        totalAmount += amounts[i];
+                        qty[5] += customers[i].getQtys();
+                        total[5] += customers[i].getAmounts();
+                        ;
+                        totalAmount += customers[i].getAmounts();
                         break;
                     default:
                         throw new AssertionError();
@@ -299,7 +328,6 @@ public class Fashion_Shop {
         } else if (option == 'N' || option == 'n') {
             homepage();
         }
-
     }
 
     public static void searchOrder() {
@@ -315,9 +343,9 @@ public class Fashion_Shop {
         System.out.print("\n\n\tEnter order ID : ");
         String orderID = input.next();
         boolean isValidNumber = false;
-        for (int i = 0; i < Orders.length; i++) {
-            if (orderID.equals(Orders[i])) {
-                showOrderDetails(i);
+        for (int i = 0; i < customers.length; i++) {
+            if (orderID.equals(customers[i].getID())) {
+                customers[i].showOrderDetails(i);
                 isValidNumber = true;
                 break;
             }
@@ -331,6 +359,32 @@ public class Fashion_Shop {
             searchOrder();
         } else if (option == 'N' || option == 'n') {
             homepage();
+        }
+    }
+
+    private static void viewReports() {
+        clearConsole();
+        System.out.println("\t\t     _____                        _       ");
+        System.out.println("\t\t    |  __ \\                      | |   ");
+        System.out.println("\t\t    | |__) |___  _ __   ___  _ __| |_ ___ ");
+        System.out.println("\t\t    |  _  // _  \\ '_ \\ / _ \\| '__|  _/ __| ");
+        System.out.println("\t\t    | | \\ \\   __/ |_) | (_) | |  | |_\\__ \\ ");
+        System.out.println("\t\t    |_|  \\_\\____| .__/ \\___/|_|   \\__|___/");
+        System.out.println("\t\t                | |    ");
+        System.out.println("\t\t                |_|");
+        System.out.println("\t\t  __________________________________________");
+
+        System.out.printf("\n\n\t\t[1] Best in Customers \n\n\t\t[2] All Orders \n\n\tEnter option : ");
+        int op = input.nextInt();
+        switch (op) {
+            case 1:
+                bestInCostomers();
+                break;
+            case 2:
+                AllOrders();
+                break;
+            default:
+                System.out.println("Try Again");
         }
     }
 
@@ -351,20 +405,20 @@ public class Fashion_Shop {
         System.out.printf("\t\t\t|%-15s|%-7s|%-15s|\n", "Customer ID", "All QTY", "Total Amount");
         System.out.printf("\t\t\t+%-15s+%-7s+%-15s+\n", "---------------", "-------", "---------------");
         l1:
-        for (int i = 0; i < phoneNumbers.length; i++) {
+        for (int i = 0; i < customers.length; i++) {
             for (int j = 0; j < phone.length; j++) {
-                if (phoneNumbers[i].equalsIgnoreCase(phone[j])) {
-                    qty[j] += qtys[i];
-                    total[j] += amounts[i];
+                if (customers[i].getPhoneNumbers().equalsIgnoreCase(phone[j])) {
+                    qty[j] += customers[i].getQtys();
+                    total[j] += customers[i].getAmounts();
                     continue l1;
                 }
             }
             phone = extendStringArrays(phone);
             qty = extendIntArrays(qty);
             total = extendDoubleArrays(total);
-            phone[phone.length - 1] = phoneNumbers[i];
-            qty[qty.length - 1] = qtys[i];
-            total[total.length - 1] = amounts[i];
+            phone[phone.length - 1] = customers[i].getPhoneNumbers();
+            qty[qty.length - 1] = customers[i].getQtys();
+            total[total.length - 1] = customers[i].getAmounts();
         }
         for (int i = 0; i < qty.length - 1; i++) {
             for (int j = i + 1; j < qty.length; j++) {
@@ -412,22 +466,9 @@ public class Fashion_Shop {
         System.out.printf("\t\t|  %-10s| %-14s| %-6s|  %-5s|   %-11s| %-14s|\n", "Order ID", "Phone Number", "Size", "QTY", " Amount", "    Status");
         System.out.printf("\t\t+%-12s+%-13s+%-7s+%-7s+%-13s+%-15s+\n", "------------", "---------------", "-------", "-------", "--------------", "---------------");
 
-        String tempOrders[] = new String[Orders.length];
-        String tempphoneNumbers[] = new String[phoneNumbers.length];
-        String tempsizes[] = new String[sizes.length];
-        int tempqtys[] = new int[qtys.length];
-        double tempamounts[] = new double[amounts.length];
-        String tempstatuss[] = new String[statuss.length];
-        for (int i = Orders.length - 1; i >= 0; i--) {
-            tempOrders[Orders.length - 1 - i] = Orders[i];
-            tempphoneNumbers[Orders.length - 1 - i] = phoneNumbers[i];
-            tempsizes[Orders.length - 1 - i] = sizes[i];
-            tempqtys[Orders.length - 1 - i] = qtys[i];
-            tempamounts[Orders.length - 1 - i] = amounts[i];
-            tempstatuss[Orders.length - 1 - i] = statuss[i];
-        }
-        for (int i = 0; i < Orders.length; i++) {
-            System.out.printf("\t\t|  %-10s| %-14s|  %-5s|  %-5s|   %-11.2f| %-14s|\n", tempOrders[i], tempphoneNumbers[i], tempsizes[i], tempqtys[i], tempamounts[i], tempstatuss[i]);
+        
+        for (int i = customers.length-1; i >=0; i--) {
+            System.out.printf("\t\t|  %-10s| %-14s|  %-5s|  %-5s|   %-11.2f| %-14s|\n", customers[i].getID(), customers[i].getPhoneNumbers(), customers[i].getSizes(), customers[i].getQtys(), customers[i].getAmounts(), customers[i].getStatuss());
         }
         System.out.printf("\t\t+%-12s+%-13s+%-7s+%-7s+%-13s+%-15s+\n", "------------", "---------------", "-------", "-------", "--------------", "---------------");
         while (true) {
@@ -453,14 +494,14 @@ public class Fashion_Shop {
         System.out.print("\t\tEnter order ID : ");
         String searchId = input.next();
         boolean isvalid = false;
-        for (int i = 0; i < Orders.length; i++) {
-            if (searchId.equalsIgnoreCase(Orders[i])) {
-                showOrderDetails(i);
+        for (int i = 0; i < customers.length; i++) {
+            if (searchId.equalsIgnoreCase(customers[i].getID())) {
+                customers[i].showOrderDetails(i);
                 isvalid = true;
                 System.out.print("\n\n\tDo you want to change this status? (y/n) : ");
                 char op = input.next().charAt(0);
                 if (op == 'y' || op == 'Y') {
-                    if (statuss[i].equalsIgnoreCase("Processing")) {
+                    if (customers[i].getStatuss().equalsIgnoreCase("Processing")) {
                         System.out.printf("\n\t\t[1]  Order Delivering  \n\t\t[2] Order Delivered ");
                         int option = 1;
                         System.out.println("");
@@ -474,16 +515,16 @@ public class Fashion_Shop {
                         } while (true);
                         switch (option) {
                             case 1:
-                                statuss[i] = finalStatus[1];
+                                customers[i].setStatuss(finalStatus[1]);
                                 System.out.println("\n\t\tStatus Updated..!");
                                 break;
                             case 2:
-                                statuss[i] = finalStatus[2];
+                                customers[i].setStatuss(finalStatus[2]);
                                 System.out.println("\n\t\tStatus Updated..!");
                                 break;
                         }
 
-                    } else if (statuss[i].equalsIgnoreCase("Delivering")) {
+                    } else if (customers[i].getStatuss().equalsIgnoreCase("Delivering")) {
                         System.out.printf(" \n\t\t[1] Order Delivered ");
                         int option = 1;
                         do {
@@ -495,7 +536,7 @@ public class Fashion_Shop {
                             System.out.println("\n\t\tInvalid Input..");
                         } while (true);
                         if (option == 1) {
-                            statuss[i] = finalStatus[2];
+                            customers[i].setStatuss(finalStatus[2]);
                             System.out.println("\n\t\tStatus Updated..!");
                             break;
                         }
@@ -531,17 +572,33 @@ public class Fashion_Shop {
         System.out.println("\t\t_______________________________________________________________");
         System.out.print("\n\n\t\tEnter order ID : ");
         String searchId = input.next();
+        Customer[] temp = new Customer[customers.length - 1];
         boolean isValid = false;
-        for (int i = 0; i < Orders.length; i++) {
-            if (searchId.equalsIgnoreCase(Orders[i])) {
-                showOrderDetails(i);
-                for (int j = i; j < Orders.length - 1; j++) {
-                    Orders[j] = Orders[j + 1];
+        for (int i = 0; i < customers.length; i++) {
+
+            if (searchId.equalsIgnoreCase(customers[i].getID())) {
+                customers[i].showOrderDetails(i);
+                System.out.print("\n\n\tDo you want to delete this order? (y/n) : ");
+                char op = input.next().charAt(0);
+                if (op == 'y' || op == 'Y') {
+                    for (int j = i; j < customers.length - 1; j++) {
+                        temp[j] = customers[j + 1];
+                    }
+                    customers = temp;
                 }
+
                 isValid = true;
                 break;
+            } else if (i < customers.length - 1) {
+                temp[i] = customers[i];
             }
         }
+        
+        
+        
+        
+        
+        
         if (!isValid) {
             System.out.println("\n\t\tInvalid ID..");
         }
@@ -555,21 +612,35 @@ public class Fashion_Shop {
 
     }
 
-    public static void showOrderDetails(int i) {
-        System.out.print("\n\tPhone Number : " + phoneNumbers[i]);
-        System.out.print("\n\tSize         : " + sizes[i]);
-        System.out.print("\n\tQTY          : " + qtys[i]);
-        System.out.print("\n\tAmount       : " + amounts[i]);
-        System.out.print("\n\tStatus       : " + statuss[i]);
+    public final static void clearConsole() {
+        try {
+            final String os = System.getProperty("os.name");
+            if (os.contains("Windows")) {
+                new ProcessBuilder("cmd", "/c",
+                        "cls").inheritIO().start().waitFor();
+            } else {
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
+            }
+        } catch (final Exception e) {
+            e.printStackTrace();
+            // Handle any exceptions.
+        }
     }
 
-    public static void extendArrays() {
-        Orders = extendStringArrays(Orders);
-        phoneNumbers = extendStringArrays(phoneNumbers);
-        sizes = extendStringArrays(sizes);
-        qtys = extendIntArrays(qtys);
-        amounts = extendDoubleArrays(amounts);
-        statuss = extendStringArrays(statuss);
+    private static void clearLinesAbove(int numLines) {
+        for (int i = 0; i < numLines; i++) {
+            System.out.print("\033[1F\033[2K"); // Move cursor up one line and clear line
+        }
+    }
+
+    public static Customer[] extendCustomerArray(Customer[] arr) {
+        Customer temp[] = new Customer[arr.length + 1];
+        for (int i = 0; i < arr.length; i++) {
+            temp[i] = arr[i];
+        }
+        arr = temp;
+        return arr;
     }
 
     public static String[] extendStringArrays(String[] arr) {
@@ -599,25 +670,4 @@ public class Fashion_Shop {
         return arr;
     }
 
-    public final static void clearConsole() {
-        try {
-            final String os = System.getProperty("os.name");
-            if (os.contains("Windows")) {
-                new ProcessBuilder("cmd", "/c",
-                        "cls").inheritIO().start().waitFor();
-            } else {
-                System.out.print("\033[H\033[2J");
-                System.out.flush();
-            }
-        } catch (final Exception e) {
-            e.printStackTrace();
-            // Handle any exceptions.
-        }
-    }
-
-    private static void clearLinesAbove(int numLines) {
-        for (int i = 0; i < numLines; i++) {
-            System.out.print("\033[1F\033[2K"); // Move cursor up one line and clear line
-        }
-    }
 }
